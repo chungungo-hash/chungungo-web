@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Web Profesional y Registro Seguro</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Inter & Icons (FontAwesome) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Notificación / Message Box Personalizado -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl flex items-center space-x-3 border border-slate-700">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-message" class="text-sm font-medium">Acción realizada con éxito</span>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-brand-500/30">
+                    <i class="fa-solid fa-shield-halved text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-bold tracking-tight text-slate-900">CyberShield<span class="text-brand-600">Local</span></span>
+                    <span class="block text-xs text-slate-500">Servidor de Pruebas & Hardening</span>
+                </div>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                <a href="#inicio" class="hover:text-brand-600 transition">Inicio</a>
+                <a href="#caracteristicas" class="hover:text-brand-600 transition">Características</a>
+                <a href="#registros" class="hover:text-brand-600 transition">Registros Almacenados</a>
+            </nav>
+            <div>
+                <button onclick="openModal()" class="bg-brand-600 hover:bg-brand-700 text-white font-medium px-5 py-2.5 rounded-xl shadow-lg shadow-brand-500/20 transition-all transform hover:-translate-y-0.5 flex items-center space-x-2">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span>Acceder / Ingresar</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        
+        <!-- Hero Section con imágenes llamativas -->
+        <section id="inicio" class="relative overflow-hidden py-16 lg:py-24 bg-gradient-to-b from-white to-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <!-- Texto Principal -->
+                    <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center space-x-2 bg-brand-50 text-brand-700 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
+                            <i class="fa-solid fa-server"></i>
+                            <span>Entorno de Pruebas Local v1.0</span>
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                            Infraestructura Web <span class="text-brand-600">Segura y Confiable</span>
+                        </h1>
+                        <p class="text-lg text-slate-600 max-w-xl mx-auto lg:mx-0">
+                            Plataforma lista para pruebas de red local, simulación de accesos y almacenamiento seguro de credenciales con validación instantánea en navegador.
+                        </p>
+                        <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-2">
+                            <button onclick="openModal()" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-8 py-4 rounded-xl shadow-xl shadow-brand-500/25 transition-all transform hover:-translate-y-1 flex items-center justify-center space-x-3">
+                                <i class="fa-solid fa-user-lock text-lg"></i>
+                                <span>Iniciar Sesión / Registrar</span>
+                            </button>
+                            <a href="#registros" class="bg-white hover:bg-slate-50 text-slate-700 font-semibold px-8 py-4 rounded-xl border border-slate-200 transition-all flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-database text-brand-600"></i>
+                                <span>Ver Datos Guardados</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Imagen de alta calidad destacada -->
+                    <div class="lg:col-span-6 relative">
+                        <div class="absolute -inset-1.5 bg-gradient-to-r from-brand-600 to-indigo-400 rounded-3xl blur-xl opacity-30 animate-pulse"></div>
+                        <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-white">
+                            <!-- Imagen atractiva de alta calidad con fallback -->
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" 
+                                 onerror="this.src='https://placehold.co/800x600/4f46e5/ffffff?text=Servidor+Local+Seguro';" 
+                                 alt="Servidor y Seguridad" 
+                                 class="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-700">
+                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-slate-900/80 via-slate-900/40 to-transparent p-6 text-white">
+                                <p class="text-xs uppercase tracking-wider font-semibold text-brand-300">Monitoreo en Vivo</p>
+                                <h3 class="text-xl font-bold">Gestión de Credenciales LocalStorage</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Características Cards -->
+        <section id="caracteristicas" class="py-16 bg-white border-y border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <h2 class="text-3xl font-bold text-slate-900 tracking-tight">Arquitectura del Sistema</h2>
+                    <p class="text-slate-600 mt-2">Diseñado para validar procesos de autenticación y persistencia local antes de migrar a la nube.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 hover:shadow-xl transition-all group">
+                        <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-network-wired"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-900 mb-2">Preparado para Red Local</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Ejecútalo en tu máquina local o súbelo a un servidor intranet para pruebas con múltiples dispositivos en la misma red.</p>
+                    </div>
+                    <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 hover:shadow-xl transition-all group">
+                        <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-900 mb-2">Almacenamiento Local</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Captura de campos segura mediante LocalStorage del navegador web con visualización en tiempo real en formato tabular.</p>
+                    </div>
+                    <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 hover:shadow-xl transition-all group">
+                        <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-shield-check"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-900 mb-2">Validación de Campos</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Formularios validados dinámicamente con control de correos y enmascaramiento básico de seguridad para contraseñas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Registros Almacenados (Tabla interactiva) -->
+        <section id="registros" class="py-16 bg-slate-50 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-6 sm:p-8 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-900">Registros Almacenados</h3>
+                        <p class="text-sm text-slate-500 mt-1">Lista de correos y accesos guardados localmente en este navegador.</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button onclick="loadRecords()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-sm font-medium transition flex items-center space-x-2">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>Actualizar</span>
+                        </button>
+                        <button onclick="clearAllRecords()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 px-4 py-2 rounded-xl text-sm font-medium transition flex items-center space-x-2">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <span>Limpiar Todo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200 text-slate-500 text-xs uppercase tracking-wider font-semibold">
+                                <th class="py-4 px-6">ID / Fecha</th>
+                                <th class="py-4 px-6">Correo Electrónico</th>
+                                <th class="py-4 px-6">Contraseña (Hash / Oculta)</th>
+                                <th class="py-4 px-6 text-right">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="records-table-body" class="divide-y divide-slate-200 text-sm text-slate-700">
+                            <!-- Los registros se cargan dinámicamente con JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="empty-state" class="hidden py-16 text-center">
+                    <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+                    <h4 class="text-slate-800 font-semibold text-lg">No hay registros guardados</h4>
+                    <p class="text-slate-500 text-sm mt-1">Haz clic en "Acceder / Ingresar" para agregar tu primer registro.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-8 text-center text-sm text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>Portal Web Local &bull; Desarrollado para pruebas de desarrollo web y despliegue en red.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL DE ACCESO / INGRESO (Formulario con campos solicitados) -->
+    <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md mx-4 overflow-hidden transform scale-95 transition-transform duration-300 border border-slate-100" id="modal-container">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-brand-600 to-indigo-600 p-6 text-white relative">
+                <button onclick="closeModal()" class="absolute top-4 right-4 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 w-8 h-8 rounded-full flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center mb-4 text-xl">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3 class="text-2xl font-bold">Panel de Acceso</h3>
+                <p class="text-brand-100 text-sm mt-1">Ingresa tus credenciales para almacenar los datos localmente.</p>
+            </div>
+
+            <!-- Modal Formulario -->
+            <form id="access-form" onsubmit="handleFormSubmit(event)" class="p-6 sm:p-8 space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Correo Electrónico</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
+                            <i class="fa-solid fa-envelope"></i>
+                        </span>
+                        <input type="email" id="email" required placeholder="tu.correo@ejemplo.com"
+                            class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Contraseña</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
+                            <i class="fa-solid fa-key"></i>
+                        </span>
+                        <input type="password" id="password" required placeholder="••••••••"
+                            class="w-full pl-11 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition">
+                        <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600">
+                            <i id="eye-icon" class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex space-x-3 pt-2">
+                    <button type="button" onclick="closeModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-3 rounded-xl transition">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 rounded-xl shadow-lg shadow-brand-500/25 transition">
+                        Guardar Datos
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts de funcionalidad -->
+    <script>
+        // Funciones de Apertura y Cierre del Modal
+        function openModal() {
+            const modal = document.getElementById('auth-modal');
+            const container = document.getElementById('modal-container');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            container.classList.remove('scale-95');
+            container.classList.add('scale-100');
+            document.getElementById('email').focus();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('auth-modal');
+            const container = document.getElementById('modal-container');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            container.classList.remove('scale-100');
+            container.classList.add('scale-95');
+            document.getElementById('access-form').reset();
+        }
+
+        // Alternar visibilidad de la contraseña
+        function togglePasswordVisibility() {
+            const pwdInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            if (pwdInput.type === 'password') {
+                pwdInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                pwdInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Sistema de Notificaciones Toast (Reemplazo amigable de alert)
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMsg.textContent = message;
+            if (type === 'success') {
+                toastIcon.className = 'fa-solid fa-circle-check text-emerald-400 text-lg';
+            } else {
+                toastIcon.className = 'fa-solid fa-circle-exclamation text-rose-400 text-lg';
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Manejo de envío del formulario y almacenamiento en LocalStorage
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (!email || !password) {
+                showToast('Por favor completa todos los campos', 'error');
+                return;
+            }
+
+            // Crear objeto de registro
+            const newRecord = {
+                id: 'REG-' + Math.floor(1000 + Math.random() * 9000),
+                email: email,
+                password: '•'.repeat(password.length) + ' (' + password.length + ' chars)',
+                rawPassword: password, // Para fines demostrativos locales
+                date: new Date().toLocaleString()
+            };
+
+            // Obtener registros existentes o arreglo vacío
+            let records = JSON.parse(localStorage.getItem('web_records') || '[]');
+            records.unshift(newRecord); // Agregar al inicio
+
+            // Guardar en LocalStorage
+            localStorage.setItem('web_records', JSON.stringify(records));
+
+            // Cerrar modal, limpiar y actualizar tabla
+            closeModal();
+            loadRecords();
+            showToast('Información almacenada localmente con éxito');
+        }
+
+        // Cargar registros en la tabla
+        function loadRecords() {
+            const tbody = document.getElementById('records-table-body');
+            const emptyState = document.getElementById('empty-state');
+            const records = JSON.parse(localStorage.getItem('web_records') || '[]');
+
+            tbody.innerHTML = '';
+
+            if (records.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            records.forEach((record, index) => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50/80 transition';
+                tr.innerHTML = `
+                    <td class="py-4 px-6 font-medium text-slate-900">
+                        <span class="inline-block bg-brand-50 text-brand-700 px-2.5 py-1 rounded-md text-xs font-semibold mr-2">${record.id}</span>
+                        <span class="text-xs text-slate-400">${record.date}</span>
+                    </td>
+                    <td class="py-4 px-6 text-slate-800 font-medium">${escapeHtml(record.email)}</td>
+                    <td class="py-4 px-6 font-mono text-slate-500 text-xs">${escapeHtml(record.password)}</td>
+                    <td class="py-4 px-6 text-right">
+                        <button onclick="deleteRecord(${index})" class="text-slate-400 hover:text-rose-600 p-2 rounded-lg transition" title="Eliminar registro">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Eliminar un registro individual
+        function deleteRecord(index) {
+            let records = JSON.parse(localStorage.getItem('web_records') || '[]');
+            records.splice(index, 1);
+            localStorage.setItem('web_records', JSON.stringify(records));
+            loadRecords();
+            showToast('Registro eliminado');
+        }
+
+        // Limpiar todos los registros
+        function clearAllRecords() {
+            const records = JSON.parse(localStorage.getItem('web_records') || '[]');
+            if (records.length === 0) {
+                showToast('No hay registros para borrar', 'error');
+                return;
+            }
+            if (confirm('¿Estás seguro de eliminar todos los registros guardados?')) {
+                localStorage.removeItem('web_records');
+                loadRecords();
+                showToast('Todos los registros han sido borrados');
+            }
+        }
+
+        // Seguridad básica contra XSS en visualización
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+
+        // Inicializar tabla al cargar la ventana
+        window.onload = function() {
+            loadRecords();
+        }
+    </script>
+</body>
+</html>
